@@ -1,0 +1,12 @@
+<div class="container">
+  <header>Channels</header>
+  <ul class="channels-list">
+    <li *ngFor="let channel of channels">
+      <a [routerLink]="['/home']" [queryParams]="{channel: channel.id}" >
+        <h3>{{ channel.channelName }}</h3>
+        <p>Channel Id: {{ channel.id }}</p>
+      </a>
+    </li>
+  </ul>
+</div>
+

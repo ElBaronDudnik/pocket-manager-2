@@ -1,0 +1,7 @@
+.graph-container {
+  height: 100vh;
+  overflow: hidden;
+}
+iframe {
+  height: calc(100% - 60px);
+}
