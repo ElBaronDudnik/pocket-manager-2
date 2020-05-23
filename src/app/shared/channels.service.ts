@@ -30,13 +30,17 @@ export class ChannelsService {
   }
 
   public getUserInfo(uid) {
+    console.log(uid);
     this.databaseService.getUserById(uid).subscribe((result: UserInfo) => {
-      const userInfo = {
+      console.log(result);
+      if (result) {
+        const userInfo = {
         username: result.name,
         token: uid,
         channels: result.channels,
         role: result.role,
-      };
+        }
+      }
       // localStorage.setItem('user', JSON.stringify(userInfo));
       this.getChannelsData(result);
     });

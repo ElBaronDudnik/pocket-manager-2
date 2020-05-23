@@ -27,7 +27,12 @@
     width: 51px;
     height: 30px;
     border: 1px solid darkgrey;
+    text-indent: 7px;
   }
+}
+
+.options__text {
+  flex: 1;
 }
 
 .popup {
@@ -47,30 +52,41 @@
     background: white;
     border-radius: 3px;
     padding: 10px 20px;
+    position: relative;
   }
 
-  .list {
-
-  }
-
-  label {
+  .label__radio {
     background: none;
     border: 2px solid lightgrey;
     border-radius: 50%;
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
+    position: relative;
     display: inline-block;
     margin-right: 10px;
     color: #525c65;
   }
 
-  input:active > label:before {
+  label {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  input:checked + label > .label__radio:after {
     content: '';
+    width: 8px;
+    height: 8px;
+    top: 1.5px;
+    left: 1.5px;
+    border-radius: 50%;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: inline-block;
     background: #525c65;
+  }
+
+  .label__text {
+    text-transform: uppercase;
   }
 
   h3 {
@@ -83,5 +99,8 @@
     color: darkblue;
     border: none;
     font-weight: bold;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
   }
 }
