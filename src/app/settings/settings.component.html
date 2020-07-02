@@ -1,21 +1,42 @@
 <div class="container">
-  <header>Settings</header>
+  <header>
+    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+         width="30" height="30"
+         viewBox="0 0 172 172"
+         class="arrow_back"
+         (click)="goBack()"
+         style=" fill:#000000;">
+      <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+        <path d="M0,172v-172h172v172z" fill="none"></path>
+        <g fill="#ffffff">
+          <path d="M110.725,154.08333l11.10833,-11.10833l-56.975,-56.975l56.975,-56.975l-11.10833,-11.10833l-67.725,68.08333z"></path>
+        </g></g>
+    </svg>
+    Settings
+  </header>
   <form action="#">
     <ul class="options">
-      <li class="options__item" (click)="popupOpen = true">
-        <span class="options__text">Изменить уставку</span>
+<!--      <li class="options__item" (click)="popupOpen = true">-->
+<!--        <span class="options__text">Изменить уставку</span>-->
+<!--      </li>-->
+<!--      <li class="options__item">-->
+<!--        <span class="options__text">Изменить PH</span>-->
+<!--        <input type="number" (change)="changePHSetting($event.target.value)" [formControl]="changePH">-->
+<!--      </li>-->
+<!--      <li class="options__item">-->
+<!--        <span class="options__text">Изменить Rx</span>-->
+<!--        <input type="number" (change)="changeRxSetting($event.target.value)" [formControl]="changeRx">-->
+<!--      </li>-->
+<!--      <li class="options__item">-->
+<!--        <span class="options__text">Изменить Temp</span>-->
+<!--        <input type="number" (change)="changeTempSetting($event.target.value)" [formControl]="changeTemp">-->
+<!--      </li>-->
+      <li class="options__item">
+        <span class="options__text">Колличество точек в одном часу</span>
+        <input type="number" [value]="pointsValue"  [formControl]="points">
       </li>
       <li class="options__item">
-        <span class="options__text">Изменить PH</span>
-        <input type="number" (change)="changePHSetting($event.target.value)" [formControl]="changePH">
-      </li>
-      <li class="options__item">
-        <span class="options__text">Изменить Rx</span>
-        <input type="number" (change)="changeRxSetting($event.target.value)" [formControl]="changeRx">
-      </li>
-      <li class="options__item">
-        <span class="options__text">Изменить Temp</span>
-        <input type="number" (change)="changeTempSetting($event.target.value)" [formControl]="changeTemp">
+        <span class="options__text" (click)="popupOpen = true">Изменить отметку времени на графике</span>
       </li>
       <li class="options__item" (click)="logOut()">
         <span class="options__icon">
@@ -41,27 +62,36 @@
 
 <div class="popup" *ngIf="popupOpen">
   <form action="#" (change)="change($event)">
-    <h3>Выберите режим</h3>
+<!--    <h3>Выберите режим</h3>-->
+<!--    <ul class="list">-->
+<!--      <li>-->
+<!--        <input type="radio" name="mode" id="mode_eco" data-mode="0" hidden>-->
+<!--        <label for="mode_eco">-->
+<!--          <span class="label__radio"></span>-->
+<!--          <span class="label__text">Эконом</span>-->
+<!--        </label>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <input type="radio" name="mode" id="mode_standard" data-mode="1" hidden>-->
+<!--        <label for="mode_standard">-->
+<!--          <span class="label__radio"></span>-->
+<!--          <span class="label__text">Стандарт</span>-->
+<!--        </label>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <input type="radio" name="mode" id="mode_load" data-mode="2" hidden>-->
+<!--        <label for="mode_load">-->
+<!--          <span class="label__radio"></span>-->
+<!--          <span class="label__text">Нагрузка</span>-->
+<!--        </label>-->
+<!--      </li>-->
+<!--    </ul>-->
     <ul class="list">
-      <li>
-        <input type="radio" name="mode" id="mode_eco" data-mode="0" hidden>
-        <label for="mode_eco">
+      <li *ngFor="let value of hours">
+        <input type="radio" name="mode" [id]="'hour' + value" data-mode="0" [value]="value" hidden [checked]="value == timestampValue">
+        <label [for]="'hour' + value">
           <span class="label__radio"></span>
-          <span class="label__text">Эконом</span>
-        </label>
-      </li>
-      <li>
-        <input type="radio" name="mode" id="mode_standard" data-mode="1" hidden>
-        <label for="mode_standard">
-          <span class="label__radio"></span>
-          <span class="label__text">Стандарт</span>
-        </label>
-      </li>
-      <li>
-        <input type="radio" name="mode" id="mode_load" data-mode="2" hidden>
-        <label for="mode_load">
-          <span class="label__radio"></span>
-          <span class="label__text">Нагрузка</span>
+          <span class="label__text">{{ value }}</span>
         </label>
       </li>
     </ul>

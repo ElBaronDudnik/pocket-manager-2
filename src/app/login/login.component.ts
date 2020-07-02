@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {AuthService} from '../shared/auth.service';
-import {Router} from '@angular/router';
-import {ChannelsService} from '../shared/channels.service';
+import { AuthService } from '../shared/auth.service';
+import { Router } from '@angular/router';
 
 export interface User {
   name: string;
@@ -17,7 +16,10 @@ export interface User {
 })
 export class LoginComponent implements OnInit {
   public form: FormGroup;
-  public errors;
+  public errors = {
+    isError: false,
+    errorMes: ''
+  };
   constructor(private auth: AuthService,
               private router: Router) { }
 
@@ -26,18 +28,28 @@ export class LoginComponent implements OnInit {
       login: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
 
   public login() {
     if (this.form.valid) {
       this.auth.authorization(this.form.value.login, this.form.value.password).then(uid => {
         console.log(uid);
-        this.router.navigate(['menu']);
-
-        if (uid === 'error') {
-          this.errors = true;
+        if (uid.toLowerCase().includes('error')) {
+          this.errors = {
+            isError: true,
+            errorMes: 'Введенный пароль не соответсвует email. Обратитесь к вашему администратору!'
+          };
+        } else {
+          this.router.navigate(['menu']);
         }
       });
+    } else {
+      this.errors = {
+        isError: true,
+        errorMes: 'Заполните пожалуйста все поля!'
+      };
     }
   }
 
